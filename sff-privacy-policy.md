@@ -63,4 +63,4 @@ We use industry-standard measures to protect stored data. However, no method of 
 We may update this Privacy Policy from time to time. If we make material changes, we will update the “Effective Date.” Continued use of the app after changes constitutes acceptance.
 
 ## 10. Contact Us
-If you have questions, contact us at **support@simplyfoodfacts.com**.
+If you have questions, contact us at **SimplyFoodFacts@gmail.com**.
