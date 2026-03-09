@@ -1,5 +1,6 @@
 import { Alert } from "react-native";
 import * as Linking from "expo-linking";
+import { getDeviceHeaders } from "@/utils/deviceId";
 
 export const handleClearScanHistory = () => {
   Alert.alert(
@@ -12,8 +13,10 @@ export const handleClearScanHistory = () => {
         style: "destructive",
         onPress: async () => {
           try {
+            const headers = await getDeviceHeaders();
             const response = await fetch("/api/scan-history", {
               method: "DELETE",
+              headers,
             });
             if (response.ok) {
               Alert.alert("Success", "Scan history cleared");
@@ -41,8 +44,10 @@ export const handleClearAlerts = () => {
         style: "destructive",
         onPress: async () => {
           try {
+            const headers = await getDeviceHeaders();
             const response = await fetch("/api/alerts", {
               method: "DELETE",
+              headers,
             });
             if (response.ok) {
               Alert.alert("Success", "All alerts cleared");

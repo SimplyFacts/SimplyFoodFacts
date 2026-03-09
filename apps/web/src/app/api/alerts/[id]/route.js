@@ -1,8 +1,17 @@
 import sql from "@/app/api/utils/sql";
 
-// Toggle alert active status
+function getDeviceId(request) {
+  return request.headers.get("x-device-id");
+}
+
+// Toggle alert active status (scoped to device)
 export async function PATCH(request, { params }) {
   try {
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
     const { id } = params;
     const body = await request.json();
     const { active } = body;
@@ -17,7 +26,7 @@ export async function PATCH(request, { params }) {
     const result = await sql`
       UPDATE ingredient_alerts 
       SET active = ${active}
-      WHERE id = ${id}
+      WHERE id = ${id} AND device_id = ${deviceId}
       RETURNING *
     `;
 
@@ -32,13 +41,18 @@ export async function PATCH(request, { params }) {
   }
 }
 
-// Delete ingredient alert (permanent deletion)
+// Delete ingredient alert (scoped to device)
 export async function DELETE(request, { params }) {
   try {
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
     const { id } = params;
 
     await sql`
-      DELETE FROM ingredient_alerts WHERE id = ${id}
+      DELETE FROM ingredient_alerts WHERE id = ${id} AND device_id = ${deviceId}
     `;
 
     return Response.json({ success: true });

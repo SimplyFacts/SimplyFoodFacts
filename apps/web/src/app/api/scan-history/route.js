@@ -1,17 +1,25 @@
 import sql from "@/app/api/utils/sql";
 
+function getDeviceId(request) {
+  return request.headers.get("x-device-id");
+}
+
 // Track last cleanup time in memory (resets on server restart, which is fine)
 let lastCleanup = null;
 
-// Get scan history (with periodic cleanup of old records)
+// Get scan history for this device (with periodic cleanup of old records)
 export async function GET(request) {
   try {
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
     // Only clean up old records once per day
     const now = Date.now();
     const oneDayMs = 24 * 60 * 60 * 1000;
 
     if (!lastCleanup || now - lastCleanup > oneDayMs) {
-      // Clean up old records (older than 30 days)
       await sql`
         DELETE FROM scan_history
         WHERE scanned_at < NOW() - INTERVAL '30 days'
@@ -19,12 +27,12 @@ export async function GET(request) {
       lastCleanup = now;
     }
 
-    // Return the recent history (deduplicated - only most recent scan per barcode)
-    // Ordered by newest scans first
+    // Return recent history for this device (deduplicated by barcode)
     const rows = await sql`
       SELECT * FROM (
         SELECT DISTINCT ON (barcode) *
         FROM scan_history
+        WHERE device_id = ${deviceId}
         ORDER BY barcode, scanned_at DESC
       ) AS recent_scans
       ORDER BY scanned_at DESC
@@ -41,9 +49,14 @@ export async function GET(request) {
   }
 }
 
-// Add to scan history
+// Add to scan history for this device
 export async function POST(request) {
   try {
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
     const body = await request.json();
     const { barcode, product_name } = body;
 
@@ -52,8 +65,8 @@ export async function POST(request) {
     }
 
     const rows = await sql`
-      INSERT INTO scan_history (barcode, product_name)
-      VALUES (${barcode}, ${product_name || null})
+      INSERT INTO scan_history (barcode, product_name, device_id)
+      VALUES (${barcode}, ${product_name || null}, ${deviceId})
       RETURNING *
     `;
 
@@ -67,10 +80,15 @@ export async function POST(request) {
   }
 }
 
-// Clear all scan history
+// Clear all scan history for this device
 export async function DELETE(request) {
   try {
-    await sql`DELETE FROM scan_history`;
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
+    await sql`DELETE FROM scan_history WHERE device_id = ${deviceId}`;
     return Response.json({ success: true, message: "History cleared" });
   } catch (error) {
     console.error("Error clearing scan history:", error);

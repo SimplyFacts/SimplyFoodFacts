@@ -1,8 +1,17 @@
 import sql from "@/app/api/utils/sql";
 
-// Batch create ingredient alerts
+function getDeviceId(request) {
+  return request.headers.get("x-device-id");
+}
+
+// Batch create ingredient alerts for this device
 export async function POST(request) {
   try {
+    const deviceId = getDeviceId(request);
+    if (!deviceId) {
+      return Response.json({ error: "Missing device ID" }, { status: 400 });
+    }
+
     const body = await request.json();
     const { ingredients } = body;
 
@@ -29,9 +38,10 @@ export async function POST(request) {
       );
     }
 
-    // Get existing active alerts to avoid duplicates
+    // Get existing active alerts for this device to avoid duplicates
     const existing = await sql`
-      SELECT ingredient_name FROM ingredient_alerts WHERE active = true
+      SELECT ingredient_name FROM ingredient_alerts 
+      WHERE active = true AND device_id = ${deviceId}
     `;
     const existingNames = new Set(
       existing.map((row) => row.ingredient_name.toLowerCase().trim()),
@@ -50,17 +60,16 @@ export async function POST(request) {
       });
     }
 
-    // Insert all new ingredients using a transaction with tagged templates
+    // Insert all new ingredients
     const rows = await sql.transaction(
       newIngredients.map(
         (name) =>
-          sql`INSERT INTO ingredient_alerts (ingredient_name, alert_type, active)
-              VALUES (${name}, 'warning', true)
+          sql`INSERT INTO ingredient_alerts (ingredient_name, alert_type, active, device_id)
+              VALUES (${name}, 'warning', true, ${deviceId})
               RETURNING *`,
       ),
     );
 
-    // sql.transaction returns an array of result arrays — flatten to get all rows
     const insertedRows = rows.flat();
 
     return Response.json({
