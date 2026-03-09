@@ -5,3 +5,4 @@ apps/mobile/caches/
 .env
 apps/web/.env
 apps/mobile/.env
+.DS_Store

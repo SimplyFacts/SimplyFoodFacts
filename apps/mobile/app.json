@@ -57,10 +57,10 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "09be4071-b92c-4dd4-a481-ec050116c680"
+        "projectId": "5dd931aa-0801-4295-b9e7-f15f9e9dd855"
       }
     },
-    "owner": "create-inc",
+    "owner": "carlton.grizzle",
     "updates": {
       "url": "https://u.expo.dev/09be4071-b92c-4dd4-a481-ec050116c680"
     }
