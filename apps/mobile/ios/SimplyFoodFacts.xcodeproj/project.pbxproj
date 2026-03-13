@@ -8,28 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13C382BE32C7827931EE3AB4 /* libPods-SimplyFoodFacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6FEACC40739EA9363755A4 /* libPods-SimplyFoodFacts.a */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		8988C552A51ED0AF48761AE0 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99555B9B27BF3B265C7AF6BA /* ExpoModulesProvider.swift */; };
-		B0A0EC176D492E056E0C7D4D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 902686D3F6FAA5F3C92DE115 /* PrivacyInfo.xcprivacy */; };
+		41221B38348863B22255D198 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7DA12DFA3C1A63A31BA89DF3 /* PrivacyInfo.xcprivacy */; };
+		7F095269A9E0E3630A8CEFCF /* libPods-SimplyFoodFacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8FCB6667B376E9567AAC761 /* libPods-SimplyFoodFacts.a */; };
+		866C29DCA15D1361BE576EC8 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703C1A95137A440D74839BA3 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C6FEACC40739EA9363755A4 /* libPods-SimplyFoodFacts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplyFoodFacts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* SimplyFoodFacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplyFoodFacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SimplyFoodFacts/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SimplyFoodFacts/Info.plist; sourceTree = "<group>"; };
-		4D106C9C4255557B51AD25CA /* Pods-SimplyFoodFacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimplyFoodFacts.debug.xcconfig"; path = "Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts.debug.xcconfig"; sourceTree = "<group>"; };
-		53C582AE8615643C7BB0909C /* Pods-SimplyFoodFacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimplyFoodFacts.release.xcconfig"; path = "Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts.release.xcconfig"; sourceTree = "<group>"; };
-		902686D3F6FAA5F3C92DE115 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = SimplyFoodFacts/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		99555B9B27BF3B265C7AF6BA /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-SimplyFoodFacts/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		703C1A95137A440D74839BA3 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-SimplyFoodFacts/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		7DA12DFA3C1A63A31BA89DF3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = SimplyFoodFacts/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A8FCB6667B376E9567AAC761 /* libPods-SimplyFoodFacts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplyFoodFacts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = SimplyFoodFacts/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C2D3B4DB20735C0824E453AC /* Pods-SimplyFoodFacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimplyFoodFacts.debug.xcconfig"; path = "Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SimplyFoodFacts/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* SimplyFoodFacts-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SimplyFoodFacts-Bridging-Header.h"; path = "SimplyFoodFacts/SimplyFoodFacts-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA2A7AC028C74E099B8A2E44 /* Pods-SimplyFoodFacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimplyFoodFacts.release.xcconfig"; path = "Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13C382BE32C7827931EE3AB4 /* libPods-SimplyFoodFacts.a in Frameworks */,
+				7F095269A9E0E3630A8CEFCF /* libPods-SimplyFoodFacts.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,15 +53,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				902686D3F6FAA5F3C92DE115 /* PrivacyInfo.xcprivacy */,
-			);
-			name = SimplyFoodFacts;
-			sourceTree = "<group>";
-		};
-		1A2128A3B63A970121E0FD35 /* SimplyFoodFacts */ = {
-			isa = PBXGroup;
-			children = (
-				99555B9B27BF3B265C7AF6BA /* ExpoModulesProvider.swift */,
+				7DA12DFA3C1A63A31BA89DF3 /* PrivacyInfo.xcprivacy */,
 			);
 			name = SimplyFoodFacts;
 			sourceTree = "<group>";
@@ -70,9 +62,17 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0C6FEACC40739EA9363755A4 /* libPods-SimplyFoodFacts.a */,
+				A8FCB6667B376E9567AAC761 /* libPods-SimplyFoodFacts.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8207DB2929D6843786340FC3 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				E667137070816E3A175EEC1D /* SimplyFoodFacts */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -89,8 +89,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				B9BF9F08903FC3B49B8EA71E /* Pods */,
-				B3D06184C1B1059CADAF7C2F /* ExpoModulesProviders */,
+				BAC1598B4759C874B7C40A4E /* Pods */,
+				8207DB2929D6843786340FC3 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -105,19 +105,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B3D06184C1B1059CADAF7C2F /* ExpoModulesProviders */ = {
+		BAC1598B4759C874B7C40A4E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1A2128A3B63A970121E0FD35 /* SimplyFoodFacts */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
-		B9BF9F08903FC3B49B8EA71E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4D106C9C4255557B51AD25CA /* Pods-SimplyFoodFacts.debug.xcconfig */,
-				53C582AE8615643C7BB0909C /* Pods-SimplyFoodFacts.release.xcconfig */,
+				C2D3B4DB20735C0824E453AC /* Pods-SimplyFoodFacts.debug.xcconfig */,
+				FA2A7AC028C74E099B8A2E44 /* Pods-SimplyFoodFacts.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -132,6 +124,14 @@
 			path = SimplyFoodFacts/Supporting;
 			sourceTree = "<group>";
 		};
+		E667137070816E3A175EEC1D /* SimplyFoodFacts */ = {
+			isa = PBXGroup;
+			children = (
+				703C1A95137A440D74839BA3 /* ExpoModulesProvider.swift */,
+			);
+			name = SimplyFoodFacts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SimplyFoodFacts" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				6D08918C0FE726CA35303EFE /* [Expo] Configure project */,
+				2A8495080532B814CAA3CBFA /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				4AF6F269AFF624E2E01FD830 /* [CP] Embed Pods Frameworks */,
+				6566642920084CCDB337943E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -196,7 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				B0A0EC176D492E056E0C7D4D /* PrivacyInfo.xcprivacy in Resources */,
+				41221B38348863B22255D198 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,29 +242,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4AF6F269AFF624E2E01FD830 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6D08918C0FE726CA35303EFE /* [Expo] Configure project */ = {
+		2A8495080532B814CAA3CBFA /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -287,6 +265,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-SimplyFoodFacts/expo-configure-project.sh\"\n";
+		};
+		6566642920084CCDB337943E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SimplyFoodFacts/Pods-SimplyFoodFacts-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -356,7 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				8988C552A51ED0AF48761AE0 /* ExpoModulesProvider.swift in Sources */,
+				866C29DCA15D1361BE576EC8 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +365,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D106C9C4255557B51AD25CA /* Pods-SimplyFoodFacts.debug.xcconfig */;
+			baseConfigurationReference = C2D3B4DB20735C0824E453AC /* Pods-SimplyFoodFacts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -394,14 +394,14 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "SimplyFoodFacts/SimplyFoodFacts-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53C582AE8615643C7BB0909C /* Pods-SimplyFoodFacts.release.xcconfig */;
+			baseConfigurationReference = FA2A7AC028C74E099B8A2E44 /* Pods-SimplyFoodFacts.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -424,7 +424,7 @@
 				PRODUCT_NAME = SimplyFoodFacts;
 				SWIFT_OBJC_BRIDGING_HEADER = "SimplyFoodFacts/SimplyFoodFacts-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
