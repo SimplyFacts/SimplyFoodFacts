@@ -1,6 +1,7 @@
 import { Alert } from "react-native";
 import * as Linking from "expo-linking";
 import { getDeviceHeaders } from "@/utils/deviceId";
+import { useAlertsStore } from "@/stores/alertsStore";
 
 export const handleClearScanHistory = () => {
   Alert.alert(
@@ -50,6 +51,7 @@ export const handleClearAlerts = () => {
               headers,
             });
             if (response.ok) {
+              useAlertsStore.getState().clearAlerts();
               Alert.alert("Success", "All alerts cleared");
             } else {
               Alert.alert("Error", "Failed to clear alerts");
