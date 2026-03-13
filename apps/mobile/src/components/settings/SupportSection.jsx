@@ -11,7 +11,7 @@ export function SupportSection() {
     try {
       await Share.share({
         message:
-          "Check out Simply Food Facts--No opinions. No ads. No tracking. Just the facts.",
+          "Check out Simply Food Facts — No opinions. No ads. No tracking. Just the facts. Download it here: https://apps.apple.com/app/id6759892146",
       });
     } catch (error) {
       console.error("Error sharing:", error);
