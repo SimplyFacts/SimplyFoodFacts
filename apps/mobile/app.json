@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.createinc.ab9205c29df64033b222734e5dfa9662",
-      "buildNumber": "9",
+      "buildNumber": "10",
       "infoPlist": {
         "NSCameraUsageDescription": "Simply Food Facts scans product barcodes with your camera to look up ingredients and allergens. For example, scan a cereal box to see if it contains nuts or artificial sweeteners. Photos are not saved or shared—we only use the barcode number to retrieve product information.",
         "NSContactsUsageDescription": "This app does not use your contacts.",
