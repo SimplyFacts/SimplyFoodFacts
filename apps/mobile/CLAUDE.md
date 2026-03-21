@@ -52,8 +52,6 @@ first launch. Note: Expo Go simulators may share AsyncStorage in cloned environm
 - EAS project ID: `5dd931aa-...` (carlton.grizzle account)
 - `appVersionSource` is set to `remote` in `eas.json` — do NOT manually set
   `buildNumber` in `app.json`, EAS manages this automatically
-- `autoSubmit` is enabled in the production profile — `eas build` will
-  automatically submit to App Store Connect after building
 - Always run `eas build` from `anything/apps/mobile/`
 - Build must be manually attached to the submission in App Store Connect after
   each new build — easy to miss
