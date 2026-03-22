@@ -58,10 +58,6 @@ export default function RootLayout() {
     }
   }, [isReady, disclaimerChecked]);
 
-  if (!isReady || !disclaimerChecked) {
-    return null;
-  }
-
   return (
     <QueryProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
