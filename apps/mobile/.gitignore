@@ -11,4 +11,4 @@ caches/
 # Credentials
 *.p12
 *.mobileprovision
-credentials.json
+credentials.jsoncaches/
