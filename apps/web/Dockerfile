@@ -8,7 +8,7 @@ RUN npm install -g bun && bun install --frozen-lockfile
 
 COPY . .
 
-RUN bun run build
+RUN NODE_OPTIONS="--max-old-space-size=900" bun run build
 
 EXPOSE 3000
 
