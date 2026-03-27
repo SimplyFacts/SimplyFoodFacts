@@ -1,0 +1,6 @@
+apps/mobile
+.git
+**/.git
+**/node_modules
+**/.cache
+**/build
