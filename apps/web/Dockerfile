@@ -10,7 +10,7 @@ COPY . .
 
 RUN NODE_OPTIONS="--max-old-space-size=900" bun run build
 
-RUN mkdir -p build/server/src/app && cp -r src/app/api build/server/src/app/api
+RUN mkdir -p /app/build/server/src/app && cp -r /app/src/app/api /app/build/server/src/app/api
 
 EXPOSE 3000
 
