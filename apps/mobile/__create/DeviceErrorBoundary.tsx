@@ -1,6 +1,5 @@
 import React, { type ReactNode, useCallback, useEffect, useState } from 'react';
 import { SharedErrorBoundary, Button } from './SharedErrorBoundary';
-import * as Updates from 'expo-updates';
 import { SplashScreen } from 'expo-router/build/exports';
 import { DevSettings, LogBox, Platform, View } from 'react-native';
 import { serializeError } from 'serialize-error';
@@ -22,9 +21,7 @@ const DeviceErrorBoundary = ({
       return;
     }
 
-    Updates.reloadAsync().catch((error) => {
-      // no-op, we don't want to show an error here
-    });
+    DevSettings.reload();
   }, []);
   return (
     <SharedErrorBoundary
