@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef, useEffect, useMemo } from "react";
 import { parseIngredients } from "@/utils/ingredientUtils";
+import { appendDeviceId } from "@/utils/deviceId";
 import { detectAllIngredients } from "@/utils/ingredientMatcher";
 
 // Fetch product from local DB or OpenFoodFacts
@@ -35,7 +36,8 @@ async function fetchProduct(barcode) {
 
 // Save scan to history
 async function saveScanHistory(barcode, productName) {
-  const response = await fetch("/api/scan-history", {
+  const _url = await appendDeviceId("/api/scan-history");
+  const response = await fetch(_url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

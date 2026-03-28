@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getDeviceHeaders } from "@/utils/deviceId";
+import { appendDeviceId } from "@/utils/deviceId";
 
 // Fetch scan history
 async function fetchScanHistory() {
-  const headers = await getDeviceHeaders();
-  const response = await fetch("/api/scan-history", { headers });
+  const url = await appendDeviceId("/api/scan-history");
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Failed to fetch history");
   }
@@ -13,10 +13,9 @@ async function fetchScanHistory() {
 
 // Clear scan history
 async function clearScanHistory() {
-  const headers = await getDeviceHeaders();
-  const response = await fetch("/api/scan-history", {
+  const url = await appendDeviceId("/api/scan-history");
+  const response = await fetch(url, {
     method: "DELETE",
-    headers,
   });
   if (!response.ok) {
     throw new Error("Failed to clear history");

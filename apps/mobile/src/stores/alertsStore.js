@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getDeviceHeaders } from "@/utils/deviceId";
+import { appendDeviceId } from "@/utils/deviceId";
 
 // Global alerts store using Zustand
 export const useAlertsStore = create((set, get) => ({
@@ -13,8 +13,8 @@ export const useAlertsStore = create((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const headers = await getDeviceHeaders();
-      const response = await fetch("/api/alerts", { headers });
+      const url = await appendDeviceId("/api/alerts");
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch alerts");
 
       const alerts = await response.json();
@@ -33,10 +33,10 @@ export const useAlertsStore = create((set, get) => ({
   // Add a new alert
   addAlert: async (ingredient_name, notes) => {
     try {
-      const deviceHeaders = await getDeviceHeaders();
-      const response = await fetch("/api/alerts", {
+      const url = await appendDeviceId("/api/alerts");
+      const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...deviceHeaders },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ingredient_name, notes }),
       });
 
@@ -59,10 +59,10 @@ export const useAlertsStore = create((set, get) => ({
   // Batch add multiple alerts at once
   batchAddAlerts: async (ingredientNames) => {
     try {
-      const deviceHeaders = await getDeviceHeaders();
-      const response = await fetch("/api/alerts/batch", {
+      const url = await appendDeviceId("/api/alerts/batch");
+      const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...deviceHeaders },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ingredients: ingredientNames }),
       });
 
@@ -83,10 +83,9 @@ export const useAlertsStore = create((set, get) => ({
   // Delete an alert
   deleteAlert: async (id) => {
     try {
-      const deviceHeaders = await getDeviceHeaders();
-      const response = await fetch(`/api/alerts/${id}`, {
+      const url = await appendDeviceId(`/api/alerts/${id}`);
+      const response = await fetch(url, {
         method: "DELETE",
-        headers: deviceHeaders,
       });
 
       if (!response.ok) throw new Error("Failed to delete alert");
@@ -110,10 +109,10 @@ export const useAlertsStore = create((set, get) => ({
     }));
 
     try {
-      const deviceHeaders = await getDeviceHeaders();
-      const response = await fetch(`/api/alerts/${id}`, {
+      const url = await appendDeviceId(`/api/alerts/${id}`);
+      const response = await fetch(url, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json", ...deviceHeaders },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ active: false }),
       });
 
