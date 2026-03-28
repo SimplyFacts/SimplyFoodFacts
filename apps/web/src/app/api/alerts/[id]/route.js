@@ -1,7 +1,10 @@
 import sql from "@/app/api/utils/sql";
 
 function getDeviceId(request) {
-  return request.headers.get("x-device-id");
+  const url = new URL(request.url);
+  const id = url.searchParams.get("deviceId") || request.headers.get("x-device-id");
+  if (!id || id === "null" || id === "undefined" || id.length < 10) return null;
+  return id;
 }
 
 // Toggle alert active status (scoped to device)
