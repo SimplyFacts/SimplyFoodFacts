@@ -61,9 +61,5 @@
       }
     },
     "owner": "carlton.grizzle",
-    "updates": {
-      "enabled": false,
-      "checkAutomatically": "NEVER"
-    }
   }
 }
