@@ -2,7 +2,9 @@ import sql from "@/app/api/utils/sql";
 
 function getDeviceId(request) {
   const url = new URL(request.url);
-  return url.searchParams.get("deviceId") || request.headers.get("x-device-id");
+  const id = url.searchParams.get("deviceId") || request.headers.get("x-device-id");
+  if (!id || id === "null" || id === "undefined" || id.length < 10) return null;
+  return id;
 }
 
 // Track last cleanup time in memory (resets on server restart, which is fine)
