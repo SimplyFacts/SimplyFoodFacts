@@ -45,16 +45,24 @@ export default function RootLayout() {
     }
   };
 
+  const hideSplash = async () => {
+    let attempts = 0;
+    while (attempts < 10) {
+      const result = await SplashScreen.hideAsync();
+      if (result !== undefined) break;
+      await new Promise(r => setTimeout(r, 100));
+      attempts++;
+    }
+  };
+
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 1500);
+    const timeout = setTimeout(hideSplash, 1500);
     return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
     if (isReady && disclaimerChecked) {
-      SplashScreen.hideAsync();
+      hideSplash();
     }
   }, [isReady, disclaimerChecked]);
 
