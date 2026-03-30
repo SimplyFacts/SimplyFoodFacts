@@ -13,6 +13,7 @@ export default function RootLayout() {
   const { initiate, isReady } = useAuth();
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [disclaimerChecked, setDisclaimerChecked] = useState(false);
+  const [splashHidden, setSplashHidden] = useState(false);
 
   useEffect(() => {
     initiate();
@@ -53,6 +54,7 @@ export default function RootLayout() {
       await new Promise(r => setTimeout(r, 100));
       attempts++;
     }
+    setSplashHidden(true);
   };
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export default function RootLayout() {
     <QueryProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <DisclaimerModal
-          visible={showDisclaimer}
+          visible={splashHidden && showDisclaimer}
           onAccept={handleAcceptDisclaimer}
         />
         <Stack screenOptions={{ headerShown: false }} initialRouteName="index">
