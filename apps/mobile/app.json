@@ -2,15 +2,22 @@
   "expo": {
     "name": "Simply Food Facts",
     "slug": "ab9205c2-9df6-4033-b222-734e5dfa9662",
-    "version": "1.1.0",
+    "version": "1.1.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "simplyfoodfacts.ab9205c2-9df6-4033-b222-734e5dfa9662",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "imageWidth": 200,
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.createinc.ab9205c29df64033b222734e5dfa9662",
+      "appleTeamId": "5MG8AK45K9",
       "infoPlist": {
         "NSCameraUsageDescription": "Simply Food Facts scans product barcodes with your camera to look up ingredients and allergens. For example, scan a cereal box to see if it contains nuts or artificial sweeteners. Photos are not saved or shared\u2014we only use the barcode number to retrieve product information.",
         "NSContactsUsageDescription": "This app does not use your contacts.",
