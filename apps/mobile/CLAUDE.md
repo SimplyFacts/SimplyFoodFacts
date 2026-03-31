@@ -3,18 +3,9 @@
 A React Native/Expo app for scanning food products and flagging ingredients of concern,
 powered by Open Food Facts data.
 
-## Project Structure
-
-This repo contains TWO `apps/mobile` directories — do not confuse them:
-
-- `anything/apps/mobile/` — ✅ THIS IS SimplyFoodFacts (the active codebase)
-- `apps/mobile/` — ⚠️ stale create.xyz platform scaffold, still on v1.0.0; ignore
-
-Always work in `anything/apps/mobile/` unless explicitly told otherwise.
-
 ## Tech Stack
 
-- React Native / Expo (Expo Router)
+- React Native / Expo 54 (Expo Router)
 - Zustand (state management)
 - TanStack Query v5 (data fetching)
 - lucide-react-native (icons)
@@ -31,6 +22,26 @@ Use `isPending && !isError` instead of `isLoading` for loading states. In v5,
 - URL: `ab9205c2-9df6-4033-b222-734e5dfa9662.created.app`
 - Database tables: `products`, `scan_history`, `alerts` (all include `device_id` column)
 - External: Open Food Facts (world.openfoodfacts.org) for product lookups
+- ⚠️ Backend device ID filtering not yet verified — confirm `WHERE device_id = ?`
+  exists in all relevant backend queries before next major release
+
+## Planned Migration: Away from Anything.ai
+
+The backend is currently hosted on the Anything.ai/create.xyz platform.
+This dependency is being removed. Do NOT add new dependencies on:
+- `__create/` scaffolding
+- `route-builder.ts`
+- `NEXT_PUBLIC_CREATE_ENV`
+- create.xyz hosted URLs
+
+Migration backlog:
+1. Replace route-builder.ts with standard React Router file-based routing
+2. Fix @/ path aliases that break at Node runtime
+3. Remove __create/ scaffolding (fetch.ts, stripe.ts, integrations proxy, auth)
+4. Delete stale ssr-test route
+5. Clean up NEXT_PUBLIC_CREATE_ENV references
+6. Deploy to Vercel or alternative platform (Railway was explored and ruled out —
+   do not suggest it)
 
 ## Environment Variables
 
@@ -39,34 +50,142 @@ Use `isPending && !isError` instead of `isLoading` for loading states. In v5,
 - `EXPO_PUBLIC_PROJECT_GROUP_ID` — used in JWT auth headers
 - `EXPO_PUBLIC_REVENUE_CAT_*` — RevenueCat (tip jar / in-app purchases)
 
+## Two Machines
+
+- **Mac Studio** (username: `cg`) — primary dev machine; paths use `anything/`
+  subdirectory (e.g. `~/Projects/Apps/SimplyFoodFacts/anything/apps/mobile/`)
+- **MacBook Air** (username: `carltongrizzle`) — secondary machine; paths do NOT
+  use `anything/` (e.g. `~/Projects/Apps/SimplyFoodFacts/apps/mobile/`)
+
+## Build Process (Xcode — Primary for Production)
+
+Xcode is the primary build method. EAS is no longer used for production builds.
+
+### Version & Build Number Workflow
+
+Update BOTH files before every archive. Use Terminal — do not rely on the Xcode GUI
+as it may not save correctly.
+
+**Step 1 — Update Info.plist (hardcoded values required — do NOT use variables):**
+```bash
+sed -i '' 's/<string>OLD_VERSION<\/string>/<string>NEW_VERSION<\/string>/' \
+  ios/SimplyFoodFacts/Info.plist
+sed -i '' 's|<string>OLD_BUILD</string>|<string>NEW_BUILD</string>|' \
+  ios/SimplyFoodFacts/Info.plist
+```
+
+⚠️ Do NOT use `$(MARKETING_VERSION)` or `$(CURRENT_PROJECT_VERSION)` variables in
+Info.plist — this causes CompileAssetCatalogVariant failures at archive time.
+Always use hardcoded values.
+
+**Step 2 — Update project.pbxproj:**
+```bash
+sed -i '' 's/MARKETING_VERSION = OLD;/MARKETING_VERSION = NEW;/g' \
+  ios/SimplyFoodFacts.xcodeproj/project.pbxproj
+sed -i '' 's/CURRENT_PROJECT_VERSION = OLD;/CURRENT_PROJECT_VERSION = NEW;/g' \
+  ios/SimplyFoodFacts.xcodeproj/project.pbxproj
+```
+
+**Step 3 — Update app.json version to match.**
+
+**Step 4 — Verify in Xcode General tab** that Version and Build show correctly.
+
+**Step 5 — Commit all three files:**
+```bash
+git add ios/SimplyFoodFacts/Info.plist \
+        ios/SimplyFoodFacts.xcodeproj/project.pbxproj \
+        app.json
+git commit -m "Bump version to X.X.X build N"
+git push
+```
+
+### Build Number Convention
+- Build numbers increment globally — never reset between versions
+- Last submitted build: 13 (version 1.1.3)
+- Check App Store Connect → TestFlight → iOS for full build history
+
+### Archive Steps
+1. **Product → Clean Build Folder** (Shift + Cmd + K)
+2. **Product → Archive**
+3. In Organizer → **Distribute App** → upload to App Store Connect
+4. Install via TestFlight on a physical device and test before submitting for review
+5. In App Store Connect, attach build to submission manually — easy to miss
+
+### Signing
+- Use **manual signing** on the **Release tab** in Signing & Capabilities
+- Automatic signing fails for distribution builds
+- Distribution certificate fingerprint: `736AEBDBC2E94673911DCE3DAB578FB612CF77C1`
+- Provisioning profile: `*[expo] com.createinc.ab9205c29df64033...`
+
+### EAS Notes
+- EAS is no longer used for production builds — Xcode archive is preferred
+- If EAS is ever used, run `eas build:list --platform ios --limit 5` first
+- Monthly EAS free tier quota is easily exhausted during iterative debugging
+- `appVersionSource: remote` is still in eas.json but is irrelevant for Xcode builds
+
+### Important Xcode Quirks
+- `expo-updates` must be disabled — it conflicts with local Xcode builds.
+  `EXUpdates` must be purged from Pods.
+- Use `DevSettings.reload()` not `Updates.reloadAsync()` in DeviceErrorBoundary
+  files — expo-updates is removed.
+- Remove any Metro cache-wiping blocks from `metro.config.js` — they break
+  production builds in Xcode's sandbox.
+- `babel-plugin-module-resolver` is required for `@/` path aliases to resolve
+  in Xcode's sandbox. Metro does not read `tsconfig.json` paths. Already
+  configured — do not remove it.
+- Always run `pod install` from the `ios/` directory after adding or removing
+  native dependencies.
+
+## Splash Screen
+
+### Known Issue
+`SplashScreen.hideAsync()` returns `undefined` on the first call in release
+builds on physical iOS devices. The splash screen stays frozen until
+`hideAsync()` actually succeeds. This is a known `expo-splash-screen` bug.
+
+### Fix (applied in `_layout.jsx`)
+```js
+const hideSplash = async () => {
+  let attempts = 0;
+  while (attempts < 10) {
+    const result = await SplashScreen.hideAsync();
+    if (result !== undefined) break;
+    await new Promise(r => setTimeout(r, 100));
+    attempts++;
+  }
+};
+```
+- Call `hideSplash()` instead of `SplashScreen.hideAsync()` everywhere
+- Also call via `setTimeout(hideSplash, 1500)` as a failsafe
+- The render gate (`if (!isReady) return null`) has been removed — it caused
+  permanent blank screens if async init hung
+
 ## Device Isolation
 
 Scan history and alerts are keyed by `device_id` stored in AsyncStorage under
 `"simplyfoodfacts_device_id"`. Each physical device generates a random UUID on
-first launch. Note: Expo Go simulators may share AsyncStorage in cloned environments
-— this is a dev artifact and does not affect production builds.
+first launch via `src/utils/deviceId.js`.
 
-## EAS Build Notes
+All API calls append `?deviceId=<uuid>` via `appendDeviceId()`. No API call
+should fetch or write user data without a device ID.
 
-- Owner: `carlton.grizzle`
-- EAS project ID: `5dd931aa-...` (carlton.grizzle account)
-- `appVersionSource` is set to `remote` in `eas.json` — do NOT manually set
-  `buildNumber` in `app.json`, EAS manages this automatically
-- Always run `eas build` from `anything/apps/mobile/`
-- Build must be manually attached to the submission in App Store Connect after
-  each new build — easy to miss
+### Data Isolation Verification Checklist
+When fixing any bug related to data isolation, always verify in this order:
+1. Backend filters data by device ID (`WHERE device_id = ?` in every relevant query)
+2. Frontend sends device ID on every request (no unguarded API calls)
+3. End-to-end test with two real physical devices — confirm data does not bleed across
 
-## Apple Developer
+Sending `deviceId` on the frontend means nothing if the backend ignores it.
+Always verify the backend first.
 
-- Team: David Carlton Grizzle (5MG8AK45K9)
-- Bundle ID: `com.createinc.ab9205c29df64033b222734e5dfa9662`
-- Expo account: `carlton.grizzle`
-- GitHub org: SimplyFacts
+## Path Aliases
+
+`@/` path aliases require `babel-plugin-module-resolver` to resolve during
+Xcode archive builds. Already configured — do not remove it.
 
 ## Alert Toggles
 
 Food-specific settings tracked in `alertMatching.js`:
-
 - `showArtificialIngredients`
 - `showArtificialColors`
 - `showSweeteners`
@@ -75,8 +194,8 @@ Food-specific settings tracked in `alertMatching.js`:
 
 - 40 expo packages out of date — run `npx expo install --check` to review
 - `.expo/` directory not in `.gitignore` — add it
-- `expo-splash-screen` out of date (31.0.10 vs 31.0.13)
 - Missing peer deps for `expo-three`: `expo-asset`, `expo-file-system`
 - Duplicate native deps: `expo-glass-effect`, `expo-location`, `react`,
   `react-native-safe-area-context`
-- `/ios` not in `.easignore` — EAS may not be syncing native config correctly
+- Backend device ID filtering not yet verified — confirm `WHERE device_id = ?`
+  exists in all relevant backend queries
