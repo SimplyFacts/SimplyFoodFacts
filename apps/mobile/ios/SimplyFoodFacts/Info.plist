@@ -33,15 +33,9 @@
           <string>com.createinc.ab9205c29df64033b222734e5dfa9662</string>
         </array>
       </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+ab9205c2-9df6-4033-b222-734e5dfa9662</string>
-        </array>
-      </dict>
     </array>
     <key>CFBundleVersion</key>
-    <string>14</string>
+    <string>16</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
     <key>LSMinimumSystemVersion</key>
