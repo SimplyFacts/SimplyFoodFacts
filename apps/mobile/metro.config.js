@@ -2,12 +2,6 @@ const { getDefaultConfig } = require('expo/metro-config');
 const path = require('node:path');
 const fs = require('node:fs');
 const { FileStore } = require('metro-cache');
-const { reportErrorToRemote } = require('./__create/report-error-to-remote');
-const {
-  handleResolveRequestError,
-  VIRTUAL_ROOT,
-  VIRTUAL_ROOT_UNRESOLVED,
-} = require('./__create/handle-resolve-request-error');
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
@@ -51,8 +45,7 @@ const NATIVE_ALIASES = {
 const SHARED_ALIASES = {
   'expo-image': path.resolve(__dirname, './polyfills/shared/expo-image.tsx'),
 };
-fs.mkdirSync(VIRTUAL_ROOT_UNRESOLVED, { recursive: true });
-config.watchFolders = [...config.watchFolders, VIRTUAL_ROOT, VIRTUAL_ROOT_UNRESOLVED];
+config.watchFolders = [...(config.watchFolders || [])];
 
 // Add web-specific alias configuration through resolveRequest
 config.resolver.resolveRequest = (context, moduleName, platform) => {
@@ -94,7 +87,7 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
     }
     return context.resolveRequest(context, moduleName, platform);
   } catch (error) {
-    return handleResolveRequestError({ error, context, platform, moduleName });
+    throw error;
   }
 };
 
@@ -107,27 +100,7 @@ config.cacheStores = () => [
 ];
 config.resetCache = false;
 config.fileMapCacheDirectory = cacheDir;
-config.reporter = {
-  ...config.reporter,
-  update: (event) => {
-    config.reporter?.update(event);
-    const reportableErrors = [
-      'error',
-      'bundling_error',
-      'cache_read_error',
-      'hmr_client_error',
-      'transformer_load_failed',
-    ];
-    for (const errorType of reportableErrors) {
-      if (event.type === errorType) {
-        reportErrorToRemote({ error: event.error }).catch((reportError) => {
-          // no-op
-        });
-      }
-    }
-    return event;
-  },
-};
+config.reporter = config.reporter;
 
 const originalGetTransformOptions = config.transformer.getTransformOptions;
 
