@@ -6,10 +6,9 @@ const { FileStore } = require('metro-cache');
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-const exclusionList = require('metro-config/src/defaults/exclusionList');
-config.resolver.blacklistRE = exclusionList([
+config.resolver.blockList = [
   new RegExp(`${__dirname.replace(/[/\\]/g, '/')}/__create/.*`),
-]);
+];
 
 config.maxWorkers = 6;
 
