@@ -60,3 +60,15 @@ Search past conversations before beginning any new investigation or fix. This av
 ## 18. Audit and Remove Platform-Specific Dependencies First When Migrating
 
 When migrating away from a platform (e.g., Anything.ai/create.xyz), the first step should be auditing `package.json` and removing all platform-specific packages before doing anything else. In SFF's case, `@anythingai/app` remained as a dependency long after migration began. It brought in a duplicate `expo-router` which caused a `ViewManagerAdapter` duplicate registration crash that froze the splash screen across all production builds. This issue took months to identify because the root cause was hidden inside `node_modules` rather than in any source file. Always run `find node_modules -name "<key-package>" -type d` to check for duplicate packages when experiencing unexplained runtime crashes.
+
+## 19. Always Check for Duplicate Packages When Hitting Unexplained Runtime Crashes
+
+When an app crashes at startup with a cryptic error like `Invariant Violation: Tried to register two views with the same name`, check for duplicate packages before assuming a code bug. Run `find node_modules -name "<package-name>" -type d` to detect multiple copies. In SFF's case, `@anythingai/app` brought in a second copy of `expo-router` that caused a `ViewManagerAdapter` crash before React Native even mounted. The duplicate was invisible in `package.json` but detectable via filesystem search.
+
+## 20. Use SecureStore, Not AsyncStorage, for Device-Specific Identifiers
+
+AsyncStorage data syncs across devices sharing the same Apple ID via iCloud backup. This causes devices to share the same device ID, resulting in shared scan history and alerts. Always use `expo-secure-store` with `keychainAccessible: AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY` for any value that must be unique per physical device. Keychain items with this accessibility level are explicitly excluded from iCloud backup and device-to-device sync.
+
+## 21. Manually Bump CFBundleVersion in Info.plist Before Every Xcode Archive
+
+When using Xcode as the primary build method (not EAS), `CFBundleVersion` does not auto-increment. It must be manually updated in `ios/<AppName>/Info.plist` before each archive or App Store Connect will reject the build as a duplicate. Consider adding a pre-archive Xcode build phase script to auto-increment this value.
