@@ -1,8 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useEffect, useMemo } from "react";
 import { parseIngredients } from "@/utils/ingredientUtils";
-import { appendDeviceId } from "@/utils/deviceId";
 import { detectAllIngredients } from "@/utils/ingredientMatcher";
+import { useScanHistory } from "@/hooks/useScanHistory";
 
 // Fetch product from local DB or OpenFoodFacts
 async function fetchProduct(barcode) {
@@ -34,28 +34,10 @@ async function fetchProduct(barcode) {
   return response.json();
 }
 
-// Save scan to history
-async function saveScanHistory(barcode, productName) {
-  const _url = await appendDeviceId("/api/scan-history");
-  const response = await fetch(_url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      barcode,
-      product_name: productName,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to save scan history");
-  }
-
-  return response.json();
-}
-
 export function useProduct(barcode) {
   const queryClient = useQueryClient();
   const savedBarcodeRef = useRef(null);
+  const { addToHistory } = useScanHistory();
 
   // Query for product data
   const productQuery = useQuery({
@@ -65,29 +47,14 @@ export function useProduct(barcode) {
     staleTime: 1000 * 60 * 30, // 30 minutes - products don't change often
   });
 
-  // Mutation for saving scan history
-  const scanHistoryMutation = useMutation({
-    mutationFn: ({ barcode, productName }) =>
-      saveScanHistory(barcode, productName),
-    onSuccess: () => {
-      // Invalidate scan history to refresh the history tab
-      queryClient.invalidateQueries({ queryKey: ["scanHistory"] });
-    },
-  });
-
-  const { mutate: saveToHistory } = scanHistoryMutation;
-
   // Auto-save to scan history when product is loaded (only once per barcode)
   const product = productQuery.data;
   useEffect(() => {
     if (product && savedBarcodeRef.current !== product.barcode) {
       savedBarcodeRef.current = product.barcode;
-      saveToHistory({
-        barcode: product.barcode,
-        productName: product.name,
-      });
+      addToHistory(product.barcode, product.name);
     }
-  }, [product, saveToHistory]);
+  }, [product, addToHistory]);
 
   // OPTIMIZATION 1: Cache parsed ingredients (runs once per product load)
   const parsedIngredients = useMemo(() => {
