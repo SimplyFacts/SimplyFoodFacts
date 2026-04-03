@@ -8,6 +8,7 @@ import {
   ChevronRight,
 } from "lucide-react-native";
 import { useRouter } from "expo-router";
+import * as Application from 'expo-application';
 import { SectionHeader } from "./SectionHeader";
 import { SettingActionItem } from "./SettingActionItem";
 import { AboutAppInfo } from "./AboutAppInfo";
@@ -68,7 +69,7 @@ export function AboutLegalSection({ onOpenURL }) {
           iconColor="#6B7280"
           iconBackgroundColor="#F9FAFB"
           title="App Version"
-          description="Simply Food Facts 1.0.0"
+          description={`Simply Food Facts ${Application.nativeApplicationVersion}`}
           isLast={true}
         />
       </View>
